@@ -1,8 +1,9 @@
 """
-D&D 5e SRD PDF to Markdown Converter & RAG Chunker
+D&D 5e SRD PDF to Markdown Converter & RAG Chunker v2.0
 
-This tool provides a complete pipeline for converting D&D 5e System Reference Document (SRD) 
-PDFs into clean, well-formatted Markdown and further chunking them into RAG-optimized pieces.
+This tool provides a complete, production-ready pipeline for converting D&D 5e System 
+Reference Document (SRD) PDFs into clean, well-formatted Markdown and further chunking 
+them into RAG-optimized pieces.
 
 Main Features:
 1. PDF text extraction with intelligent column detection
@@ -11,10 +12,21 @@ Main Features:
 4. RAG-optimized chunking (200-500 words per chunk)
 5. Table of Contents-driven section organization
 6. Comprehensive health reporting on chunk quality
+7. Smart workflow resume capability
+8. Quality validation and assessment tools
+
+New in v2.0:
+- Web interface with FastAPI and real-time progress tracking
+- Configuration profiles for different use cases (fast/quality/custom)
+- Quality validation system with OCR confidence and D&D-specific scoring
+- Comprehensive test suite with unit, integration, and performance tests
+- Enhanced error handling and recovery mechanisms
+- Parallel processing support for improved performance
+- Smart caching to reduce API costs
 
 Author: eddiefiggie
 Last Updated: July 2025
-License: Mine!
+License: MIT
 """
 
 import pdfplumber
@@ -26,11 +38,14 @@ from typing import Optional, Dict, List, Tuple
 from openai import OpenAI
 
 # Configuration handling - gracefully fallback if config.py doesn't exist
+# New in v2.0: Enhanced configuration management with profiles and validation
 try:
     import config
 except ImportError:
     print("❌ Config file not found. Please copy config.example.py to config.py and set your API key.")
     print("   Or set the OPENAI_API_KEY environment variable.")
+    print("   For enhanced features, consider using the new configuration profiles:")
+    print("   - from config_manager import ConfigManager, ProcessingConfig")
     config = None
 
 # ============================================================================
@@ -1191,6 +1206,25 @@ if __name__ == "__main__":
     # 2. Set up your OpenAI API key (in config.py or environment variable)
     # 3. Run: python srd_processor.py
     # 4. Follow the interactive prompts to choose processing options
+    #
+    # NEW IN v2.0 - Additional Usage Options:
+    # 
+    # Web Interface:
+    #   python web_interface.py
+    #   Then open http://localhost:8000 in your browser
+    #
+    # Configuration Profiles:
+    #   from config_manager import ConfigManager
+    #   manager = ConfigManager()
+    #   config = manager.load_profile("fast")  # or "quality"
+    #
+    # Quality Validation:
+    #   from quality_validator import generate_quality_report
+    #   report = generate_quality_report("export")
+    #
+    # Testing:
+    #   python test_srd_processor.py
+    #   python -m pytest test_srd_processor.py -v
     #
     # For automated/non-interactive use, you can import and call functions directly:
     # - extract_text_by_layout() for PDF extraction

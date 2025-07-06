@@ -1,5 +1,47 @@
 # Smart Workflow Resume Examples
 
+## NEW in v2.0: Multiple Interface Options
+
+### Web Interface Example
+```bash
+# Start the web server
+python web_interface.py
+
+# Browser output:
+🌐 Starting FastAPI server on http://localhost:8000
+📱 Upload PDFs via web interface
+📊 Real-time progress tracking
+📥 Download results when complete
+```
+
+### Configuration Profile Example
+```python
+# Use different profiles for different needs
+from config_manager import ConfigManager
+
+manager = ConfigManager()
+
+# Development: Fast and cheap
+config = manager.load_profile("fast")
+# Uses: gpt-3.5-turbo, smaller chunks, basic validation
+
+# Production: High quality
+config = manager.load_profile("quality") 
+# Uses: gpt-4, larger chunks, comprehensive validation
+```
+
+### Quality Validation Example
+```python
+# Check processing quality
+from quality_validator import generate_quality_report
+
+report = generate_quality_report("export")
+print(f"Quality Score: {report['summary']['average_ocr_confidence']:.2f}")
+print(f"Recommendations: {report['recommendations']}")
+```
+
+## Command Line Interface Examples
+
 ## Example 1: First Run (No Files)
 ```
 🔍 Checking existing files...
